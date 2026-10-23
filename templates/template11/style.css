@@ -1,0 +1,197 @@
+/* TEMPLATE 11 – RED ROMANCE */
+:root{
+  --wine:#6a0d0f; --wine-2:#7a1014; --red:#9c1c24; --gold:#f4d98c;
+  --cream:#fbf6f1; --blush:#f3dedd; --ink:#4a1a1c;
+  --script:'Great Vibes','Playfair Display',cursive;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Montserrat','Be Vietnam Pro',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#2a0a0b;font-family:var(--sans);color:var(--ink);
+  /* số và chữ cùng chiều cao */
+  font-variant-numeric:lining-nums tabular-nums;font-feature-settings:"lnum" 1,"tnum" 1;
+  -webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.script{font-family:var(--script);font-weight:400}
+/* Chữ số: dùng Montserrat (chữ số kiểu lining, cao bằng chữ hoa, cùng chiều cao) */
+.num{font-family:var(--sans);font-variant-numeric:lining-nums tabular-nums;font-feature-settings:"lnum" 1,"tnum" 1}
+.card-wrap{max-width:480px;margin:0 auto;background:var(--cream);overflow:hidden;position:relative}
+#sparkles{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+
+/* HERO */
+.hero{position:relative;aspect-ratio:3/4.3;background:#8b1418 center/cover no-repeat;display:flex;align-items:flex-end}
+.hero::after{content:"";position:absolute;inset:auto 0 0;height:42%;background:linear-gradient(transparent,rgba(70,5,8,.55))}
+.hero-text{position:relative;z-index:2;width:100%;text-align:center;color:#fff;padding:0 16px 22px}
+.names{display:flex;justify-content:center;align-items:baseline;gap:.35em;font-size:clamp(34px,10.5vw,50px);line-height:1.1;text-shadow:0 2px 10px rgba(60,0,0,.5);flex-wrap:wrap}
+.names i{font-style:normal;font-size:.8em}
+.hero-date{margin-top:6px;font:700 clamp(18px,5.5vw,24px)/1 var(--sans);letter-spacing:.04em;text-shadow:0 2px 8px rgba(60,0,0,.6)}
+.fab{position:absolute;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.35);color:#fff;font-size:16px;display:grid;place-items:center;z-index:5;backdrop-filter:blur(3px)}
+.fab-music{top:14px;right:14px}
+.fab-music.playing{animation:spin 4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fab-gift{position:fixed;right:max(12px,calc(50% - 228px));bottom:20px;width:46px;height:46px;font-size:21px;background:#f7a9b6;box-shadow:0 4px 14px rgba(0,0,0,.35);z-index:60}
+
+.intro{text-align:center;padding:22px 20px 8px;background:var(--cream)}
+.intro p{font:500 13px/1.7 var(--serif);color:var(--wine)}
+.hy-big{font:400 96px/1 'Ma Shan Zheng','KaiTi','STKaiti',serif;color:var(--wine-2);margin-top:6px}
+.brush{width:62%;margin-top:-12px}
+
+/* COUPLE */
+.couple{padding:26px 14px 34px;background:radial-gradient(circle at 85% 8%,#fff 0,transparent 45%),var(--cream)}
+.person{width:82%}
+.person.groom{margin:30px 0 0 auto}
+.role{display:block;font:500 11px/1 var(--sans);letter-spacing:.14em;color:var(--red);margin-bottom:6px}
+.person.groom .role{text-align:right}
+.person figure{aspect-ratio:3/4;background:linear-gradient(160deg,#9c1c24,#5a0c10) center/cover no-repeat;position:relative;border-radius:3px;overflow:hidden}
+.person figure::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(60,0,5,.45),transparent 40%)}
+.person figcaption{position:absolute;top:10px;left:14px;right:14px;z-index:2;color:#fff;font-size:clamp(28px,9vw,40px);line-height:1.15;text-shadow:0 2px 8px rgba(60,0,0,.4)}
+.person.groom figcaption{text-align:right}
+
+/* STORY */
+.story{position:relative;background:var(--wine);color:#fff;padding:28px 22px 46px;border-radius:0 0 28px 28px;margin:0 14px}
+.story h2{text-align:center;font-weight:400;margin-bottom:14px;color:#ffd9d9}
+.story h2 .script{font-size:34px;display:block;color:#ffb8bf}
+.story h2 b{font:600 17px/1 var(--serif);letter-spacing:.14em}
+.story-body{font:400 12.5px/1.8 var(--sans);text-align:justify}
+.heart-line{position:absolute;right:16px;bottom:-34px;width:62px;height:62px;filter:drop-shadow(0 0 4px rgba(255,255,255,.4))}
+.hy-box{width:62px;height:62px;margin:-31px auto 0;background:var(--wine);color:#fff;display:grid;place-items:center;font:400 38px/1 'Ma Shan Zheng',serif;position:relative;z-index:2}
+
+/* FAMILY: tiêu đề + 2 nhà (trai, gái) căn giữa, mỗi nhà có nhãn riêng */
+.family{padding:46px 22px 30px;text-align:center}
+.fam-title{font:600 clamp(16px,5vw,20px)/1.2 var(--serif);letter-spacing:.18em;color:var(--wine);margin-bottom:22px;white-space:nowrap}
+.fam-block{margin-bottom:18px}
+.fam-side{display:inline-block;font:600 11px/1 var(--sans);letter-spacing:.22em;color:var(--red);padding-bottom:6px;margin-bottom:10px;border-bottom:1px solid rgba(156,28,36,.45)}
+.parent-block{display:grid;justify-items:center;gap:8px}
+.parent-block p{display:grid;justify-items:center;gap:3px}
+.parent-block .lbl{font:italic 400 12px/1 var(--serif);color:var(--ink);opacity:.8}
+.parent-block b{font:600 15px/1.3 var(--serif);color:var(--wine)}
+.parent-block em{font:italic 400 12px/1.4 var(--serif);color:var(--ink);opacity:.85}
+.announce{margin:18px 0 12px;font:400 12.5px/1.7 var(--serif);color:var(--ink)}
+.couple-names{font:600 clamp(22px,7vw,28px)/1.35 var(--serif);letter-spacing:.06em;color:var(--wine)}
+.together{font-size:30px;color:var(--red);margin:10px 0 20px}
+.date-block{display:grid;gap:8px;color:var(--wine)}
+.month,.year{font:500 16px/1 var(--sans);letter-spacing:.2em}
+.date-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
+.date-row span{font:500 13px/1 var(--sans);letter-spacing:.06em;padding:8px 4px;border:1px solid var(--wine);border-width:1px 0}
+.date-row strong{font:600 50px/1 var(--sans);color:var(--red)}
+.lunar{font:400 12px/1.4 var(--sans);color:var(--ink)}
+.party{margin-top:20px;font:600 16px/1.6 var(--serif);letter-spacing:.06em;color:var(--wine)}
+
+/* PLACE */
+.place{padding:6px 24px 28px;text-align:center}
+.place-at{font:500 14px/1.5 var(--serif);letter-spacing:.08em;color:var(--wine)}
+.place-addr{font:500 12.5px/1.6 var(--serif);letter-spacing:.06em;color:var(--wine);margin-top:4px}
+.place-dir{display:inline-block;margin:10px 0 12px;font:italic 600 13px/1 var(--serif);letter-spacing:.1em;color:var(--red);text-decoration:none;border-bottom:1px solid var(--red)}
+.map{height:210px;border:2px solid var(--wine);border-radius:4px;overflow:hidden}
+.map iframe{width:100%;height:100%;border:0}
+
+/* TIMELINE */
+.timeline{background:var(--blush);padding:28px 20px 34px;text-align:center}
+.tl-eyebrow{display:block;font:500 11px/1 var(--sans);letter-spacing:.24em;color:#b0777b}
+.timeline h2,.countdown h2{font-size:36px;color:var(--red);margin:8px 0 22px;font-weight:400}
+.tl-line{list-style:none;display:grid;grid-template-columns:repeat(var(--n),1fr);position:relative}
+.tl-line::before{content:"";position:absolute;left:8%;right:8%;top:calc(1em + 22px);border-top:1px solid var(--red)}
+.tl-line li{display:grid;justify-items:center;gap:8px;position:relative}
+.tl-line time{font:600 14px/1 var(--sans);color:var(--wine)}
+.tl-ico{width:30px;height:30px;background:var(--blush)}
+.tl-line span{font:500 11px/1.3 var(--sans);letter-spacing:.1em;color:var(--ink)}
+
+/* CALENDAR */
+.calendar{background:var(--wine);padding:30px 18px}
+.cal-box{border:1px solid rgba(244,217,140,.55);padding:16px 14px 18px;color:var(--gold);text-align:center}
+.cal-head{font:500 15px/1 var(--sans);margin-bottom:14px}
+.cal-head b{font-weight:700}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px 0;font:500 12px/1 var(--sans);justify-items:center}
+.cal-grid .dow{font-size:10px;opacity:.75}
+.cal-grid span{width:26px;height:26px;display:grid;place-items:center}
+.cal-grid .on{border:1px solid var(--gold);border-radius:50%;font-weight:700}
+.cal-big{margin-top:18px;font:600 clamp(22px,7vw,28px)/1 var(--sans);letter-spacing:.08em}
+.cal-big i{font-style:normal;margin:0 .3em}
+.cal-sub{margin-top:8px;font:400 12px/1 var(--sans);letter-spacing:.05em}
+
+/* COUNTDOWN */
+.countdown{background:var(--cream);text-align:center;padding:26px 16px 30px}
+.cd-note{font:400 13px/1.5 var(--serif);color:#a98588;margin-bottom:16px}
+.cd{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cd div{background:var(--wine);color:var(--gold);border-radius:4px;padding:14px 4px 10px;display:grid;gap:4px}
+.cd b{font:600 clamp(22px,7vw,30px)/1 var(--sans)}
+.cd small{font:400 9px/1 var(--sans);letter-spacing:.06em}
+.cd-foot{margin-top:14px;font:400 11.5px/1.5 var(--serif);color:#b08689}
+
+/* ALBUM */
+.album{position:relative;background:var(--blush);padding:44px 34px 32px}
+.alb-top{position:absolute;top:16px;left:0;right:0;text-align:center;font:500 11px/1 var(--sans);letter-spacing:.5em;color:#fff}
+.alb-side{position:absolute;top:50px;font-size:24px;color:#8a5d60;writing-mode:vertical-rl}
+.alb-side.l{left:6px;transform:rotate(180deg)}
+.alb-side.r{right:6px}
+.alb-grid{display:grid;grid-template-columns:1.45fr 1fr;grid-template-rows:repeat(6,56px);gap:8px;padding:6px;background:var(--cream)}
+.ph{position:relative;background:#c9a7a7 center/cover no-repeat;border-radius:2px;overflow:hidden}
+.p1{grid-column:1;grid-row:1/4}.p3{grid-column:1;grid-row:4/7}
+.p2{grid-column:2;grid-row:1/3}.p4{grid-column:2;grid-row:3/5}.p5{grid-column:2;grid-row:5/7}
+.more{position:absolute;inset:0;background:rgba(80,5,10,.55);color:#fff;display:grid;place-items:center;font:600 24px/1 var(--sans)}
+
+/* GUESTBOOK */
+.guestbook{background:var(--blush);padding:34px 18px 22px;text-align:center}
+.guestbook h2,.gift h2{font-size:38px;color:var(--red);font-weight:400;margin-bottom:8px}
+.gb-note{font:italic 500 12px/1.6 var(--serif);color:var(--red);margin-bottom:16px}
+.gb-form{display:grid;gap:10px;background:rgba(255,255,255,.55);padding:14px;border-radius:8px}
+.gb-form input,.gb-form textarea{width:100%;border:1px solid #ead2d2;border-radius:6px;padding:11px 12px;font:400 13px var(--sans);background:#fff;color:var(--ink);resize:none}
+.gb-form button{background:var(--wine-2);color:#fff;padding:13px;border-radius:6px;font:600 13px/1 var(--sans);letter-spacing:.12em}
+.gb-form button:disabled{opacity:.6}
+.gb-status{font:400 11px/1.4 var(--sans);color:#8a5d60;min-height:1.4em}
+.wish-list{margin-top:14px;max-height:230px;overflow-y:auto;display:grid;gap:8px;text-align:left;padding-right:4px;scrollbar-width:thin;scrollbar-color:var(--red) transparent}
+.wish{background:#fff;border-radius:6px;padding:10px 12px}
+.wish b{font:600 13px/1.2 var(--sans);color:var(--wine)}
+.wish p{font:400 12px/1.6 var(--sans);margin-top:3px}
+.wish time{display:block;margin-top:4px;font:400 10px/1 var(--sans);color:#a98588}
+
+/* GIFT */
+.gift{background:var(--blush);padding:12px 18px 8px;text-align:center}
+.gift-note{font:400 12px/1.5 var(--serif);color:#8a5d60;margin-bottom:14px}
+.gift-card{width:100%;background:#fff;border-radius:10px;padding:22px 12px;display:grid;justify-items:center;gap:4px;box-shadow:0 2px 10px rgba(122,16,20,.08)}
+.gift-card svg{width:34px;height:34px}
+.gift-card strong{font:600 15px/1.2 var(--serif);color:var(--red)}
+.gift-card span{font:400 11px/1 var(--sans);color:#a98588}
+.thanks{font-size:32px;color:var(--red);margin:22px 0 4px}
+
+/* FOOTER */
+.foot{min-height:340px;background:#5a0c10 center/cover no-repeat;position:relative;display:flex;align-items:flex-end;text-align:center;color:#fff}
+.foot::before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 20%,rgba(50,0,5,.82))}
+.foot-text{position:relative;width:100%;padding:0 20px 28px}
+.foot-text p:first-child{font:400 12px/1.8 var(--serif)}
+
+/* CHỮ KÝ: tên cô dâu chú rể cách điệu, dấu & màu vàng, đường lượn bên dưới */
+.sig{margin-top:12px;display:flex;flex-direction:column;align-items:center;color:#fff;text-shadow:0 2px 10px rgba(60,0,0,.6)}
+.sig-names{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:0 .12em;font-family:var(--script);font-weight:400;font-size:clamp(38px,11.5vw,52px);line-height:1.15}
+.sig-amp{font-size:1.25em;color:var(--gold);margin:0 .06em}
+.sig-swash{width:min(88%,280px);height:auto;margin-top:-6px;overflow:visible}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(20,0,2,.7);display:grid;place-items:center;z-index:100;padding:16px}
+.modal[hidden],.lightbox[hidden]{display:none}
+.modal-box{width:min(100%,420px);background:var(--blush);border-radius:6px;overflow:hidden}
+.modal-box header{background:var(--wine);color:var(--gold);padding:14px 40px;text-align:center;font:600 14px/1 var(--serif);letter-spacing:.16em;position:relative}
+.x{position:absolute;right:10px;top:6px;font-size:26px;color:#fff}
+.qr-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;padding:18px}
+.qr{background:#fff;border-radius:8px;padding:10px;display:grid;gap:6px;justify-items:center;text-align:center}
+.qr small{font:400 10.5px/1.4 var(--sans);color:var(--ink)}
+.qr img{width:100%;max-width:150px;aspect-ratio:1;object-fit:contain}
+.qr a{font:500 11px/1 var(--sans);color:var(--wine);background:var(--blush);padding:7px 14px;border-radius:99px;text-decoration:none}
+.gift-msg{padding:22px;font:400 14px/1.8 var(--serif);text-align:center}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:grid;place-items:center;z-index:120}
+.lightbox img{max-width:92vw;max-height:84vh;object-fit:contain}
+.lb-x{position:absolute;top:14px;right:18px;font-size:34px;color:#fff}
+.lb-nav{position:absolute;top:50%;font-size:44px;color:#fff;padding:10px;transform:translateY(-50%)}
+.lb-nav.prev{left:6px}.lb-nav.next{right:6px}
+
+/* Hiện dần khi cuộn: chỉ dùng cho hero text */
+@media (prefers-reduced-motion:no-preference){
+  .hero-text{animation:rise 1.2s .2s both ease-out}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}}
+}
+@media (prefers-reduced-motion:reduce){#sparkles{display:none}.fab-music.playing{animation:none}}
+@media (min-width:481px){body{padding:0}}

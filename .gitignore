@@ -1,0 +1,8 @@
+# .gitignore
+/config/database.php.local
+.env
+*.log
+.DS_Store
+Thumbs.db
+.vercel
+/uploads/cache/
