@@ -717,19 +717,19 @@ Tệp `vercel.json` chỉ định bộ runtime thực thi mã lệnh PHP (`verce
 ```json
 {
   "functions": {
-    "api/**/*.php": { "runtime": "vercel-php@0.7.1" },
-    "w/**/*.php": { "runtime": "vercel-php@0.7.1" },
-    "editor/**/*.php": { "runtime": "vercel-php@0.7.1" },
-    "admin/**/*.php": { "runtime": "vercel-php@0.7.1" },
-    "mau-thiep/**/*.php": { "runtime": "vercel-php@0.7.1" },
-    "*.php": { "runtime": "vercel-php@0.7.1" }
+    "api/*.php": {
+      "runtime": "vercel-php@0.7.1"
+    }
   },
   "routes": [
-    { "src": "/w/(?<slug>[^/]+)", "dest": "/w/index.php?slug=$slug" },
-    { "src": "/editor/(?<token>[^/]+)", "dest": "/editor/index.php?token=$token" },
     { "src": "/templates/(.*)", "dest": "/templates/$1" },
+    { "src": "/uploads/(.*)", "dest": "/uploads/$1" },
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/(.*)", "dest": "/$1" }
+    { "src": "/favicon.ico", "dest": "/favicon.ico" },
+    { "src": "/api/wishes.php", "dest": "/api/wishes.php" },
+    { "src": "/w/(?<slug>[^/]+)", "dest": "/api/index.php?slug=$slug&_route=w" },
+    { "src": "/editor/(?<token>[^/]+)", "dest": "/api/index.php?token=$token&_route=editor" },
+    { "src": "/(.*)", "dest": "/api/index.php" }
   ]
 }
 ```
