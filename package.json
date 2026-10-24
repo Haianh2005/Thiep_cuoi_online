@@ -1,0 +1,9 @@
+{
+  "name": "wedding-project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nền tảng tạo thiệp cưới online tương tác hiện đại",
+  "engines": {
+    "node": "22.x"
+  }
+}
