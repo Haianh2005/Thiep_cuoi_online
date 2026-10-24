@@ -8,6 +8,7 @@
     }
   },
   "routes": [
+    { "src": "/WeddingProject/(.*)", "dest": "/$1" },
     { "src": "/templates/(.*)", "dest": "/templates/$1" },
     { "src": "/uploads/(.*)", "dest": "/uploads/$1" },
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
