@@ -459,6 +459,7 @@ $templates = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     src="<?= e($image) ?>"
                                     alt="<?= e($name) ?>"
                                     loading="lazy"
+                                    onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80';"
                                 >
                             <?php else: ?>
                                 <div class="placeholder">

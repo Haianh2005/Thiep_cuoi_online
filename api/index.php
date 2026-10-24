@@ -65,6 +65,33 @@ if (str_starts_with($uri, '/editor/')) {
     exit;
 }
 
+// Fallback: nếu là file tĩnh (hình ảnh, css, js, fonts, audio) lọt vào gateway
+if (is_file($targetPath)) {
+    $ext = strtolower(pathinfo($targetPath, PATHINFO_EXTENSION));
+    $mimes = [
+        'css'   => 'text/css; charset=UTF-8',
+        'js'    => 'application/javascript; charset=UTF-8',
+        'json'  => 'application/json; charset=UTF-8',
+        'png'   => 'image/png',
+        'jpg'   => 'image/jpeg',
+        'jpeg'  => 'image/jpeg',
+        'gif'   => 'image/gif',
+        'webp'  => 'image/webp',
+        'svg'   => 'image/svg+xml',
+        'mp3'   => 'audio/mpeg',
+        'wav'   => 'audio/wav',
+        'ico'   => 'image/x-icon',
+        'woff'  => 'font/woff',
+        'woff2' => 'font/woff2',
+        'ttf'   => 'font/ttf'
+    ];
+    header('Content-Type: ' . ($mimes[$ext] ?? 'application/octet-stream'));
+    header('Content-Length: ' . (string)filesize($targetPath));
+    header('Cache-Control: public, max-age=31536000, immutable');
+    readfile($targetPath);
+    exit;
+}
+
 // 404 Không tìm thấy trang
 http_response_code(404);
 echo "<!DOCTYPE html><html lang='vi'><head><meta charset='UTF-8'><title>404 Not Found</title>";

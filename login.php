@@ -37,10 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("
                 SELECT id, username, email, password_hash, full_name, role, is_active
                 FROM users
-                WHERE (username = :u OR email = :u)
+                WHERE (username = :u1 OR email = :u2)
                 LIMIT 1
             ");
-            $stmt->execute(['u' => $usernameOrEmail]);
+            $stmt->execute(['u1' => $usernameOrEmail, 'u2' => $usernameOrEmail]);
             $user = $stmt->fetch();
 
             if (!$user || !password_verify($password, $user['password_hash'])) {

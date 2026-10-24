@@ -1,10 +1,19 @@
 {
   "functions": {
     "api/*.php": {
-      "runtime": "vercel-php@0.7.1"
+      "runtime": "vercel-php@0.7.1",
+      "includeFiles": "{config/**,templates/**,w/**,editor/**,admin/**,mau-thiep/**,submit/**,tools/**,*.php}"
     }
   },
   "routes": [
+    { "src": "/WeddingProject/templates/(.*)", "dest": "/templates/$1" },
+    { "src": "/WeddingProject/uploads/(.*)", "dest": "/uploads/$1" },
+    { "src": "/WeddingProject/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/WeddingProject/favicon.ico", "dest": "/favicon.ico" },
+    { "src": "/WeddingProject/api/wishes.php", "dest": "/api/wishes.php" },
+    { "src": "/WeddingProject/w/(?<slug>[^/]+)", "dest": "/api/index.php?slug=$slug&_route=w" },
+    { "src": "/WeddingProject/editor/(?<token>[^/]+)", "dest": "/api/index.php?token=$token&_route=editor" },
+    { "src": "/WeddingProject/(.*)", "dest": "/api/index.php" },
     { "src": "/templates/(.*)", "dest": "/templates/$1" },
     { "src": "/uploads/(.*)", "dest": "/uploads/$1" },
     { "src": "/assets/(.*)", "dest": "/assets/$1" },

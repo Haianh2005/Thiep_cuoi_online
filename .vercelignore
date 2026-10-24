@@ -1,0 +1,9 @@
+# .vercelignore
+.git
+.gitignore
+*.docx
+TAI_LIEU_DAC_TA_VA_THIET_KE_HE_THONG.md
+wedding_db.sql
+*.log
+.DS_Store
+Thumbs.db

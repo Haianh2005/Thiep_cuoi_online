@@ -21,7 +21,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` VALUES
 ('1', 'admin', 'admin@wedding.vn', '$2y$10$lAibzJXtWXfY7GooOA9MDOI6PJWcDvo47jQbVelVsiRcTHnEUHY6q', 'Quản Trị Viên', 'admin', '1', '2026-10-24 00:55:48'),
-('2', 'khachhang', 'khachhang@wedding.vn', '$2y$10$0brfNs5NsOHw8Dep7K57JuZLFDm9.OUkOQt/3nH3QpU0FEGc2vUbe', 'Khách Hàng Mẫu', 'customer', '1', '2026-10-24 00:55:48');
+('2', 'khachhang', 'khachhang@wedding.vn', '$2y$10$0brfNs5NsOHw8Dep7K57JuZLFDm9.OUkOQt/3nH3QpU0FEGc2vUbe', 'Khách Hàng Mẫu', 'customer', '1', '2026-10-24 00:55:48'),
+('8', 'admin2', 'admin2@wedding.vn', '$2y$10$06YCYnKFmiMH/DSOzNk/JeK69ahme44nFwPi46it0aNCoYpQmFM9u', 'Quản Trị Viên 2', 'admin', '1', '2026-10-25 00:47:06');
 
 DROP TABLE IF EXISTS `templates`;
 CREATE TABLE `templates` (
@@ -36,34 +37,34 @@ CREATE TABLE `templates` (
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `templates` VALUES
-('1', 'Long Phụng Đỏ', 'template01', 'assets/images/thumbnail.jpg', 'Mẫu thiệp cưới Long Phụng phong cách đỏ truyền thống', '1', '2026-10-02 23:45:21'),
-('2', 'Minimal Vintage', 'template02', '', 'Thiệp cưới phong cách Minimal Vintage, giấy thủ công thanh lịch', '1', '2026-10-08 01:22:20'),
-('4', 'Mộc Trà', 'template03', '', 'Mẫu thiệp cưới Mộc Trà', '1', '2026-10-09 01:34:25'),
-('5', 'Golden', 'template04', '', 'Mẫu thiệp cưới Golden nhẹ nhàng, tinh tế', '1', '2026-10-10 17:27:56'),
-('7', 'Song Hỷ Xanh', 'template05', '', 'Mẫu thiệp cưới Song Hỷ Xanh', '1', '2026-10-10 19:18:56'),
-('8', 'Tơ Duyên - Xám', 'template06', '', 'Mẫu thiệp cưới Tơ Duyên - Xám', '1', '2026-10-11 00:33:14'),
-('9', 'Tơ Duyên - Đỏ', 'template07', '', 'Mẫu thiệp cưới Tơ Duyên - Đỏ', '1', '2026-10-11 01:44:46'),
-('10', 'WEDDING ĐỎ TRẮNG', 'template08', '', 'Mẫu thiệp cưới WEDDING ĐỎ TRẮNG', '1', '2026-10-11 02:15:09'),
-('11', 'Mint', 'template10', '', 'Mẫu thiệp cưới Mint', '1', '2026-10-12 00:31:18'),
-('12', 'Wedding Xanh Trắng', 'template09', '', 'Mẫu thiệp cưới Wedding Xanh Trắng', '1', '2026-10-12 23:20:12'),
-('13', 'Red Romance', 'template11', '', 'Mẫu thiệp cưới Red Romance ', '1', '2026-10-13 23:43:46'),
-('14', 'Thủy Mặc Xanh', 'template12', '', 'Mẫu thiệp cưới Thủy Mặc Xanh', '1', '2026-10-14 00:25:19'),
-('15', 'THỦY MẶC ĐỎ ', 'template13', '', 'Mẫu thiệp cưới THỦY MẶC ĐỎ', '1', '2026-10-15 01:17:49'),
-('16', 'Wedding Hồng Vàng', 'template14', '', 'Mẫu thiệp cưới Wedding Hồng Vàng', '1', '2026-10-15 01:31:43'),
-('17', 'Wedding Be Vàng', 'template15', '', 'Mẫu thiệp cưới Wedding Be Vàng', '1', '2026-10-15 13:16:38'),
-('18', 'Wedding Xanh Trắng', 'template16', '', 'Mẫu thiệp cưới Wedding Xanh Trắng', '1', '2026-10-15 14:02:38'),
-('19', 'Song Hỷ Đỏ', 'template17', '', 'Mẫu thiệp cưới Song Hỷ Đỏ', '1', '2026-10-17 00:25:47'),
-('20', 'Navy Story', 'template18', '', 'Mẫu thiệp cưới Navy Story', '1', '2026-10-17 00:35:07'),
-('21', 'Pink Blossom Story', 'template19', '', 'Mẫu thiệp cưới Pink Blossom Story', '1', '2026-10-17 00:43:25'),
-('22', 'Đỏ Rượu Vang', 'template20', '', 'Thiệp cưới Đỏ Rượu Vang', '1', '2026-10-17 03:08:34'),
-('23', 'Thanh Xuân Xanh', 'template21', '', 'Mẫu thiệp cưới Thanh Xuân Xanh', '1', '2026-10-17 03:43:32'),
-('24', 'Xanh Rêu Vintage', 'template22', '', 'Mẫu thiệp cưới Xanh Rêu Vintage', '1', '2026-10-17 03:52:39'),
-('25', 'Wedding Sen Hồng', 'template23', '', 'Mẫu thiệp cưới Wedding Sen Hồng', '1', '2026-10-18 23:12:25'),
-('26', 'OẢI HƯƠNG', 'template24', '', 'Mẫu thiệp cưới OẢI HƯƠNG', '1', '2026-10-19 00:20:22'),
-('27', 'Đỏ Rượu Hỷ Sự', 'template25', '', 'Mẫu thiệp cưới Đỏ Rượu Hỷ Sự', '1', '2026-10-19 00:24:09'),
-('28', 'Green Garden', 'template26', '', 'Mẫu thiệp cưới Green Garden', '1', '2026-10-20 01:02:03'),
-('29', 'Long Phụng Xanh', 'template27', '', 'Mẫu thiệp cưới Long Phụng Xanh', '1', '2026-10-21 00:08:53'),
-('30', 'Wedding Burgundy', 'template28', '', 'Mẫu thiệp cưới Wedding Burgundy', '1', '2026-10-22 00:13:29');
+('1', 'Long Phụng Đỏ', 'template01', '/WeddingProject/uploads/thumbnails/thumb_template01.webp', 'Mẫu thiệp cưới Long Phụng phong cách đỏ truyền thống', '1', '2026-10-02 23:45:21'),
+('2', 'Minimal Vintage', 'template02', '/WeddingProject/uploads/thumbnails/thumb_template02.webp', 'Thiệp cưới phong cách Minimal Vintage, giấy thủ công thanh lịch', '1', '2026-10-08 01:22:20'),
+('4', 'Mộc Trà', 'template03', '/WeddingProject/uploads/thumbnails/thumb_template03.webp', 'Mẫu thiệp cưới Mộc Trà', '1', '2026-10-09 01:34:25'),
+('5', 'Golden', 'template04', '/WeddingProject/uploads/thumbnails/thumb_template04.webp', 'Mẫu thiệp cưới Golden nhẹ nhàng, tinh tế', '1', '2026-10-10 17:27:56'),
+('7', 'Song Hỷ Xanh', 'template05', '/WeddingProject/uploads/thumbnails/thumb_template05.webp', 'Mẫu thiệp cưới Song Hỷ Xanh', '1', '2026-10-10 19:18:56'),
+('8', 'Tơ Duyên - Xám', 'template06', '/WeddingProject/uploads/thumbnails/thumb_template06.webp', 'Mẫu thiệp cưới Tơ Duyên - Xám', '1', '2026-10-11 00:33:14'),
+('9', 'Tơ Duyên - Đỏ', 'template07', '/WeddingProject/uploads/thumbnails/thumb_template07.webp', 'Mẫu thiệp cưới Tơ Duyên - Đỏ', '1', '2026-10-11 01:44:46'),
+('10', 'WEDDING ĐỎ TRẮNG', 'template08', '/WeddingProject/uploads/thumbnails/thumb_template08.webp', 'Mẫu thiệp cưới WEDDING ĐỎ TRẮNG', '1', '2026-10-11 02:15:09'),
+('11', 'Mint', 'template10', '/WeddingProject/uploads/thumbnails/thumb_template10.webp', 'Mẫu thiệp cưới Mint', '1', '2026-10-12 00:31:18'),
+('12', 'Wedding Xanh Trắng', 'template09', '/WeddingProject/uploads/thumbnails/thumb_template09.webp', 'Mẫu thiệp cưới Wedding Xanh Trắng', '1', '2026-10-12 23:20:12'),
+('13', 'Red Romance', 'template11', '/WeddingProject/uploads/thumbnails/thumb_template11.webp', 'Mẫu thiệp cưới Red Romance ', '1', '2026-10-13 23:43:46'),
+('14', 'Thủy Mặc Xanh', 'template12', '/WeddingProject/uploads/thumbnails/thumb_template12.webp', 'Mẫu thiệp cưới Thủy Mặc Xanh', '1', '2026-10-14 00:25:19'),
+('15', 'THỦY MẶC ĐỎ ', 'template13', '/WeddingProject/uploads/thumbnails/thumb_template13.webp', 'Mẫu thiệp cưới THỦY MẶC ĐỎ', '1', '2026-10-15 01:17:49'),
+('16', 'Wedding Hồng Vàng', 'template14', '/WeddingProject/uploads/thumbnails/thumb_template14.webp', 'Mẫu thiệp cưới Wedding Hồng Vàng', '1', '2026-10-15 01:31:43'),
+('17', 'Wedding Be Vàng', 'template15', '/WeddingProject/uploads/thumbnails/thumb_template15.webp', 'Mẫu thiệp cưới Wedding Be Vàng', '1', '2026-10-15 13:16:38'),
+('18', 'Wedding Xanh Trắng', 'template16', '/WeddingProject/uploads/thumbnails/thumb_template16.webp', 'Mẫu thiệp cưới Wedding Xanh Trắng', '1', '2026-10-15 14:02:38'),
+('19', 'Song Hỷ Đỏ', 'template17', '/WeddingProject/uploads/thumbnails/thumb_template17.webp', 'Mẫu thiệp cưới Song Hỷ Đỏ', '1', '2026-10-17 00:25:47'),
+('20', 'Navy Story', 'template18', '/WeddingProject/uploads/thumbnails/thumb_template18.webp', 'Mẫu thiệp cưới Navy Story', '1', '2026-10-17 00:35:07'),
+('21', 'Pink Blossom Story', 'template19', '/WeddingProject/uploads/thumbnails/thumb_template19.webp', 'Mẫu thiệp cưới Pink Blossom Story', '1', '2026-10-17 00:43:25'),
+('22', 'Đỏ Rượu Vang', 'template20', '/WeddingProject/uploads/thumbnails/thumb_template20.webp', 'Thiệp cưới Đỏ Rượu Vang', '1', '2026-10-17 03:08:34'),
+('23', 'Thanh Xuân Xanh', 'template21', '/WeddingProject/uploads/thumbnails/thumb_template21.webp', 'Mẫu thiệp cưới Thanh Xuân Xanh', '1', '2026-10-17 03:43:32'),
+('24', 'Xanh Rêu Vintage', 'template22', '/WeddingProject/uploads/thumbnails/thumb_template22.webp', 'Mẫu thiệp cưới Xanh Rêu Vintage', '1', '2026-10-17 03:52:39'),
+('25', 'Wedding Sen Hồng', 'template23', '/WeddingProject/uploads/thumbnails/thumb_template23.webp', 'Mẫu thiệp cưới Wedding Sen Hồng', '1', '2026-10-18 23:12:25'),
+('26', 'OẢI HƯƠNG', 'template24', '/WeddingProject/uploads/thumbnails/thumb_template24.webp', 'Mẫu thiệp cưới OẢI HƯƠNG', '1', '2026-10-19 00:20:22'),
+('27', 'Đỏ Rượu Hỷ Sự', 'template25', '/WeddingProject/uploads/thumbnails/thumb_template25.webp', 'Mẫu thiệp cưới Đỏ Rượu Hỷ Sự', '1', '2026-10-19 00:24:09'),
+('28', 'Green Garden', 'template26', '/WeddingProject/uploads/thumbnails/thumb_template26.webp', 'Mẫu thiệp cưới Green Garden', '1', '2026-10-20 01:02:03'),
+('29', 'Long Phụng Xanh', 'template27', '/WeddingProject/uploads/thumbnails/thumb_template27.webp', 'Mẫu thiệp cưới Long Phụng Xanh', '1', '2026-10-21 00:08:53'),
+('30', 'Wedding Burgundy', 'template28', '/WeddingProject/uploads/thumbnails/thumb_template28.webp', 'Mẫu thiệp cưới Wedding Burgundy', '1', '2026-10-22 00:13:29');
 
 DROP TABLE IF EXISTS `weddings`;
 CREATE TABLE `weddings` (
