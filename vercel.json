@@ -9,7 +9,8 @@
     { "src": "/uploads/(.*)", "dest": "/uploads/$1" },
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
     { "src": "/favicon.ico", "dest": "/favicon.ico" },
-    { "src": "/api/wishes.php", "dest": "/api/wishes.php" },
+    { "src": "/ping", "dest": "/api/index.php" },
+    { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/w/(?<slug>[^/]+)", "dest": "/api/index.php?slug=$slug&_route=w" },
     { "src": "/editor/(?<token>[^/]+)", "dest": "/api/index.php?token=$token&_route=editor" },
     { "src": "/(.*)", "dest": "/api/index.php" }

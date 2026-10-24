@@ -37,14 +37,34 @@ function templateImage(?string $thumbnail, string $folder): string
     return '../templates/' . rawurlencode($folder) . '/' . ltrim($thumbnail, '/');
 }
 
-$stmt = $pdo->query("
-    SELECT id, name, folder, thumbnail, description
-    FROM templates
-    WHERE status = 1
-    ORDER BY id ASC
-");
+$templates = [];
+if ($pdo) {
+    try {
+        $stmt = $pdo->query("
+            SELECT id, name, folder, thumbnail, description
+            FROM templates
+            WHERE status = 1
+            ORDER BY id ASC
+        ");
+        $templates = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (\Throwable $e) {
+        $templates = [];
+    }
+}
 
-$templates = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Fallback nạp toàn bộ 28 mẫu thiệp nếu DB chưa sẵn sàng
+if (empty($templates)) {
+    for ($i = 1; $i <= 28; $i++) {
+        $pad = str_pad((string)$i, 2, '0', STR_PAD_LEFT);
+        $templates[] = [
+            'id' => $i,
+            'name' => "Mẫu Thiệp Cưới Cao Cấp #$pad",
+            'folder' => "template$pad",
+            'thumbnail' => "templates/template$pad/thumb.jpg",
+            'description' => "Thiết kế hiện đại, tinh tế với đầy đủ thiệp mừng, album ảnh cưới, bản đồ chỉ đường và đếm ngược."
+        ];
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="vi">

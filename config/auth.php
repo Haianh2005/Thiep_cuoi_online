@@ -3,10 +3,13 @@
 declare(strict_types=1);
 
 if (session_status() === PHP_SESSION_NONE) {
+    if (is_dir('/tmp') && is_writable('/tmp')) {
+        @session_save_path('/tmp');
+    }
     ini_set('session.cookie_httponly', '1');
     ini_set('session.use_only_cookies', '1');
     ini_set('session.cookie_samesite', 'Lax');
-    session_start();
+    @session_start();
 }
 
 /**
