@@ -3,7 +3,8 @@
   "fluid": false,
   "functions": {
     "api/*.php": {
-      "runtime": "vercel-php@0.9.0"
+      "runtime": "vercel-php@0.9.0",
+      "excludeFiles": "{uploads/**,wedding_db.sql,*.docx,*.md}"
     }
   },
   "routes": [
