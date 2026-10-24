@@ -15,14 +15,27 @@ try {
 
     // Endpoint kiểm tra sức khỏe hệ thống
     if ($uri === '/ping' || $uri === '/api/ping' || $uri === '/api/ping.php') {
+        require_once __DIR__ . '/../config/database.php';
+        $wCount = 0;
+        $tCount = 0;
+        if ($pdo && $db_connected) {
+            try {
+                $wCount = (int)$pdo->query("SELECT COUNT(*) FROM weddings")->fetchColumn();
+                $tCount = (int)$pdo->query("SELECT COUNT(*) FROM templates")->fetchColumn();
+            } catch (\Throwable $e) {}
+        }
         header('Content-Type: application/json; charset=UTF-8');
         echo json_encode([
-            'status'     => 'ok',
-            'runtime'    => 'vercel-php',
-            'php_version'=> PHP_VERSION,
-            'time'       => date('c'),
-            'env_vercel' => !empty(getenv('VERCEL')),
-            'tmp_writable' => is_writable('/tmp')
+            'status'          => 'ok',
+            'runtime'         => 'vercel-php',
+            'php_version'     => PHP_VERSION,
+            'time'            => date('c'),
+            'env_vercel'      => !empty(getenv('VERCEL')),
+            'tmp_writable'    => is_writable('/tmp'),
+            'db_connected'    => $db_connected,
+            'db_driver'       => $db_driver,
+            'weddings_count'  => $wCount,
+            'templates_count' => $tCount
         ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         exit;
     }

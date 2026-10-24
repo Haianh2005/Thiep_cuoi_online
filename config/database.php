@@ -36,36 +36,36 @@ $pass   = getenv('DB_PASS') ?: '';
 
 $isVercel = !empty(getenv('VERCEL')) || !empty(getenv('NOW_REGION')) || !empty(getenv('AWS_LAMBDA_FUNCTION_NAME'));
 
-$shouldConnect = false;
-if (!$isVercel) {
-    // Môi trường Local (XAMPP / Laragon / Docker)
-    $host = $host ?: 'localhost';
-    $shouldConnect = true;
-} else {
-    // Môi trường Vercel: chỉ kết nối nếu có cấu hình DB_HOST từ xa hợp lệ
-    if (!empty($host) && $host !== 'localhost' && $host !== '127.0.0.1') {
-        $shouldConnect = true;
-    }
-}
-
 $pdo = null;
 $db_connected = false;
 $db_error = null;
+$db_driver = 'none';
 
-if ($shouldConnect) {
+// 1. Thử kết nối MySQL nếu có cấu hình DB_HOST từ xa hoặc đang chạy Local có MySQL
+$shouldConnectMysql = false;
+if (!$isVercel) {
+    // Môi trường Local: thử MySQL localhost
+    $host = $host ?: 'localhost';
+    $shouldConnectMysql = true;
+} else {
+    // Trên Vercel: chỉ kết nối MySQL nếu có biến DB_HOST từ xa
+    if (!empty($host) && $host !== 'localhost' && $host !== '127.0.0.1') {
+        $shouldConnectMysql = true;
+    }
+}
+
+if ($shouldConnectMysql) {
     try {
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES   => false,
-            PDO::ATTR_TIMEOUT            => 3,
+            PDO::ATTR_TIMEOUT            => 2,
         ];
-
         if ($isVercel || ($host !== 'localhost' && $host !== '127.0.0.1')) {
             $options[PDO::MYSQL_ATTR_SSL_CA] = true;
             $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
         }
-
         $pdo = new PDO(
             "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4",
             $user,
@@ -73,13 +73,58 @@ if ($shouldConnect) {
             $options
         );
         $db_connected = true;
+        $db_driver = 'mysql';
     } catch (\Throwable $e) {
-        $pdo = new SafeMockPDO();
-        $db_connected = false;
+        $pdo = null;
         $db_error = $e->getMessage();
     }
-} else {
-    $pdo = new SafeMockPDO();
-    $db_connected = false;
-    $db_error = "Vercel serverless: Chưa cấu hình biến môi trường kết nối database từ xa (DB_HOST, DB_USER, DB_PASS, DB_NAME).";
+}
+
+// 2. Tự động chuyển sang SQLite nhúng dữ liệu từ wedding_db.sql (Dùng cho Vercel không cần Cloud DB)
+if (!$pdo) {
+    $bundledSqlite = dirname(__DIR__) . '/wedding.sqlite';
+    $tmpSqlite     = '/tmp/wedding.sqlite';
+    $targetSqlite  = $bundledSqlite;
+
+    // Trên Vercel: sao chép sang /tmp để hỗ trợ ghi dữ liệu (gửi lời chúc, tạo thiệp)
+    if ($isVercel && file_exists($bundledSqlite)) {
+        if (!file_exists($tmpSqlite) || filesize($tmpSqlite) === 0) {
+            @copy($bundledSqlite, $tmpSqlite);
+        }
+        if (file_exists($tmpSqlite)) {
+            $targetSqlite = $tmpSqlite;
+        }
+    }
+
+    if (file_exists($targetSqlite)) {
+        try {
+            $pdo = new PDO("sqlite:" . $targetSqlite);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+            // Đăng ký các hàm MySQL tương thích cho SQLite
+            if (method_exists($pdo, 'sqliteCreateFunction')) {
+                $pdo->sqliteCreateFunction('NOW', fn() => date('Y-m-d H:i:s'));
+                $pdo->sqliteCreateFunction('CURDATE', fn() => date('Y-m-d'));
+                $pdo->sqliteCreateFunction('CONCAT', fn(...$args) => implode('', $args));
+                $pdo->sqliteCreateFunction('IF', fn($cond, $v1, $v2) => $cond ? $v1 : $v2);
+                $pdo->sqliteCreateFunction('IFNULL', fn($val, $alt) => $val ?? $alt);
+                $pdo->sqliteCreateFunction('YEAR', fn($d) => date('Y', strtotime((string)$d)));
+                $pdo->sqliteCreateFunction('MONTH', fn($d) => date('m', strtotime((string)$d)));
+                $pdo->sqliteCreateFunction('DAY', fn($d) => date('d', strtotime((string)$d)));
+            }
+
+            $db_connected = true;
+            $db_driver = 'sqlite';
+        } catch (\Throwable $e) {
+            $pdo = new SafeMockPDO();
+            $db_connected = false;
+            $db_error = $e->getMessage();
+        }
+    } else {
+        $pdo = new SafeMockPDO();
+        $db_connected = false;
+        $db_error = "Không tìm thấy tệp cơ sở dữ liệu wedding.sqlite.";
+    }
 }
