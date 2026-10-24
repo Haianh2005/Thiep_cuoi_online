@@ -103,16 +103,17 @@ if (!$pdo) {
             $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
             $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 
-            // Đăng ký các hàm MySQL tương thích cho SQLite
-            if (method_exists($pdo, 'sqliteCreateFunction')) {
-                $pdo->sqliteCreateFunction('NOW', fn() => date('Y-m-d H:i:s'));
-                $pdo->sqliteCreateFunction('CURDATE', fn() => date('Y-m-d'));
-                $pdo->sqliteCreateFunction('CONCAT', fn(...$args) => implode('', $args));
-                $pdo->sqliteCreateFunction('IF', fn($cond, $v1, $v2) => $cond ? $v1 : $v2);
-                $pdo->sqliteCreateFunction('IFNULL', fn($val, $alt) => $val ?? $alt);
-                $pdo->sqliteCreateFunction('YEAR', fn($d) => date('Y', strtotime((string)$d)));
-                $pdo->sqliteCreateFunction('MONTH', fn($d) => date('m', strtotime((string)$d)));
-                $pdo->sqliteCreateFunction('DAY', fn($d) => date('d', strtotime((string)$d)));
+            // Đăng ký các hàm MySQL tương thích cho SQLite (hỗ trợ cả PHP 8.5+)
+            $createFn = method_exists($pdo, 'createFunction') ? [$pdo, 'createFunction'] : (method_exists($pdo, 'sqliteCreateFunction') ? [$pdo, 'sqliteCreateFunction'] : null);
+            if ($createFn) {
+                @$createFn('NOW', fn() => date('Y-m-d H:i:s'));
+                @$createFn('CURDATE', fn() => date('Y-m-d'));
+                @$createFn('CONCAT', fn(...$args) => implode('', $args));
+                @$createFn('IF', fn($cond, $v1, $v2) => $cond ? $v1 : $v2);
+                @$createFn('IFNULL', fn($val, $alt) => $val ?? $alt);
+                @$createFn('YEAR', fn($d) => date('Y', strtotime((string)$d)));
+                @$createFn('MONTH', fn($d) => date('m', strtotime((string)$d)));
+                @$createFn('DAY', fn($d) => date('d', strtotime((string)$d)));
             }
 
             $db_connected = true;
