@@ -31,5 +31,6 @@ $_SESSION['flash_message'] = [
     'message' => 'Bạn đã đăng xuất an toàn khỏi hệ thống.'
 ];
 
-header("Location: /WeddingProject/login.php");
+require_once __DIR__ . '/config/auth.php';
+header("Location: " . baseUrl('login.php'));
 exit;

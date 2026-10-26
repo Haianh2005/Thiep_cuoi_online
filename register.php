@@ -7,7 +7,7 @@ require_once __DIR__ . '/config/auth.php';
 
 // Nếu đã đăng nhập thì chuyển hướng
 if (isLoggedIn()) {
-    header("Location: /WeddingProject/my-weddings.php");
+    header("Location: " . baseUrl('my-weddings.php'));
     exit;
 }
 
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_role']      = 'customer';
 
                 setFlash('success', 'Đăng ký tài khoản thành công! Hãy bắt đầu chọn mẫu thiệp cưới của bạn.');
-                header("Location: /WeddingProject/mau-thiep/");
+                header("Location: " . baseUrl('mau-thiep/'));
                 exit;
             }
         }

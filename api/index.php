@@ -51,34 +51,35 @@ try {
 
     // Chuẩn hóa đường dẫn tệp tin mục tiêu
     $root = dirname(__DIR__);
-    $targetPath = $root . $uri;
+    $cleanUri = '/' . trim((string)$uri, '/');
+    $cleanPath = $root . $cleanUri;
 
-    if ($uri === '/' || $uri === '') {
+    if ($cleanUri === '/' || $cleanUri === '') {
         require $root . '/index.php';
         exit;
     }
 
     // Nếu là file PHP cụ thể
-    if (is_file($targetPath) && str_ends_with($targetPath, '.php')) {
-        require $targetPath;
+    if (is_file($cleanPath) && str_ends_with($cleanPath, '.php')) {
+        require $cleanPath;
         exit;
     }
 
-    // Nếu là thư mục có index.php
-    if (is_dir($targetPath) && is_file($targetPath . '/index.php')) {
-        require $targetPath . '/index.php';
+    // Nếu là thư mục có index.php (ví dụ: /admin, /admin/, /mau-thiep)
+    if (is_dir($cleanPath) && is_file($cleanPath . '/index.php')) {
+        require $cleanPath . '/index.php';
         exit;
     }
 
-    // Thử gắn thêm .php
-    if (is_file($targetPath . '.php')) {
-        require $targetPath . '.php';
+    // Thử gắn thêm .php (ví dụ: /login, /register, /my-weddings)
+    if (is_file($cleanPath . '.php')) {
+        require $cleanPath . '.php';
         exit;
     }
 
     // Kiểm tra các định tuyến phụ phổ biến
-    if (str_starts_with($uri, '/w/')) {
-        $slug = trim(substr($uri, 3), '/');
+    if (str_starts_with($cleanUri, '/w/')) {
+        $slug = trim(substr($cleanUri, 3), '/');
         if ($slug !== '' && !isset($_GET['slug'])) {
             $_GET['slug'] = $slug;
         }
@@ -86,8 +87,8 @@ try {
         exit;
     }
 
-    if (str_starts_with($uri, '/editor/')) {
-        $token = trim(substr($uri, 8), '/');
+    if (str_starts_with($cleanUri, '/editor/')) {
+        $token = trim(substr($cleanUri, 8), '/');
         if ($token !== '' && !isset($_GET['token'])) {
             $_GET['token'] = $token;
         }
@@ -95,9 +96,13 @@ try {
         exit;
     }
 
-    // Fallback: nếu là file tĩnh lọt vào gateway
-    if (is_file($targetPath)) {
-        $ext = strtolower(pathinfo($targetPath, PATHINFO_EXTENSION));
+    // Fallback: chỉ phục vụ file tĩnh KHÔNG PHẢI là PHP
+    if (is_file($cleanPath)) {
+        $ext = strtolower(pathinfo($cleanPath, PATHINFO_EXTENSION));
+        if ($ext === 'php') {
+            require $cleanPath;
+            exit;
+        }
         $mimes = [
             'css'   => 'text/css; charset=UTF-8',
             'js'    => 'application/javascript; charset=UTF-8',
@@ -116,9 +121,9 @@ try {
             'ttf'   => 'font/ttf'
         ];
         header('Content-Type: ' . ($mimes[$ext] ?? 'application/octet-stream'));
-        header('Content-Length: ' . (string)filesize($targetPath));
+        header('Content-Length: ' . (string)filesize($cleanPath));
         header('Cache-Control: public, max-age=31536000, immutable');
-        readfile($targetPath);
+        readfile($cleanPath);
         exit;
     }
 

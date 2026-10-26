@@ -5,16 +5,16 @@ declare(strict_types=1);
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/config/auth.php';
 
-$redirect = $_GET['redirect'] ?? '/WeddingProject/my-weddings.php';
+$redirect = $_GET['redirect'] ?? baseUrl('my-weddings.php');
 // Bảo vệ không redirect về trang login hoặc logout
 if (str_contains($redirect, 'login.php') || str_contains($redirect, 'logout.php')) {
-    $redirect = '/WeddingProject/my-weddings.php';
+    $redirect = baseUrl('my-weddings.php');
 }
 
 // Nếu đã đăng nhập rồi thì chuyển hướng luôn
 if (isLoggedIn()) {
     if (isAdmin() && !isset($_GET['redirect'])) {
-        header("Location: /WeddingProject/admin/");
+        header("Location: " . baseUrl('admin/'));
     } else {
         header("Location: " . $redirect);
     }
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 // Điều hướng phân quyền
                 if ($user['role'] === 'admin' && (!isset($_GET['redirect']) || empty($_GET['redirect']))) {
-                    header("Location: /WeddingProject/admin/");
+                    header("Location: " . baseUrl('admin/'));
                 } else {
                     header("Location: " . $redirect);
                 }

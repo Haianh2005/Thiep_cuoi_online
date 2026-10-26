@@ -8,15 +8,14 @@
     }
   },
   "routes": [
-    { "src": "/WeddingProject/(.*)", "dest": "/$1" },
     { "src": "/templates/(.*)", "dest": "/templates/$1" },
     { "src": "/uploads/(.*)", "dest": "/uploads/$1" },
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
     { "src": "/favicon.ico", "dest": "/favicon.ico" },
-    { "src": "/ping", "dest": "/api/index.php" },
     { "src": "/api/(.*)", "dest": "/api/$1" },
     { "src": "/w/(?<slug>[^/]+)", "dest": "/api/index.php?slug=$slug&_route=w" },
     { "src": "/editor/(?<token>[^/]+)", "dest": "/api/index.php?token=$token&_route=editor" },
+    { "src": "/WeddingProject/(.*)", "dest": "/api/index.php" },
     { "src": "/(.*)", "dest": "/api/index.php" }
   ]
 }

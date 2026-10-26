@@ -43,16 +43,29 @@ function isAdmin(): bool {
 }
 
 /**
+ * Tự động xác định tiền tố đường dẫn cơ sở (hỗ trợ cả XAMPP /WeddingProject/ và Vercel /)
+ */
+function baseUrl(string $path = ''): string {
+    static $base = null;
+    if ($base === null) {
+        $uri = $_SERVER['REQUEST_URI'] ?? '/';
+        $script = $_SERVER['SCRIPT_NAME'] ?? '';
+        $base = (stripos($uri, '/WeddingProject') === 0 || stripos($script, '/WeddingProject') === 0) ? '/WeddingProject' : '';
+    }
+    return $base . '/' . ltrim($path, '/');
+}
+
+/**
  * Yêu cầu người dùng phải đăng nhập trước khi tiếp tục
  */
 function requireLogin(?string $redirectUrl = null): void {
     if (!isLoggedIn()) {
-        $target = $redirectUrl ?: ($_SERVER['REQUEST_URI'] ?? '/WeddingProject/');
+        $target = $redirectUrl ?: ($_SERVER['REQUEST_URI'] ?? baseUrl());
         // Đảm bảo không redirect lặp lại về chính trang login
         if (str_contains($target, 'login.php')) {
-            $target = '/WeddingProject/my-weddings.php';
+            $target = baseUrl('my-weddings.php');
         }
-        header("Location: /WeddingProject/login.php?redirect=" . urlencode($target));
+        header("Location: " . baseUrl('login.php?redirect=' . urlencode($target)));
         exit;
     }
 }
